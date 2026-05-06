@@ -1,0 +1,36 @@
+<!-- https://www.hackerrank.com/challenges/diagonal-difference/problem -->
+
+fn diagonal_difference(arr: &[Vec<i32>]) -> i32 {
+    let n = arr.len();
+    let mut primary = 0;
+    let mut secondary = 0;
+
+    for i in 0..n {
+        primary += arr[i][i];
+        secondary += arr[i][n - 1 - i];
+    }
+
+    (primary - secondary).abs()
+}
+
+fn main() {
+    use std::io;
+
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let n: usize = input.trim().parse().unwrap();
+
+    let mut arr: Vec<Vec<i32>> = Vec::with_capacity(n);
+
+    for _ in 0..n {
+        input.clear();
+        io::stdin().read_line(&mut input).unwrap();
+        let row: Vec<i32> = input.trim().split_whitespace()
+            .map(|x| x.parse().unwrap())
+            .collect();
+        arr.push(row);
+    }
+
+    let result = diagonal_difference(&arr);
+    println!("{}", result);
+}
